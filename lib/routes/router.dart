@@ -4,9 +4,19 @@ import 'package:ui_playground2/pages/card_change_page.dart';
 import 'package:ui_playground2/pages/down_light_page.dart';
 import 'package:ui_playground2/pages/image_paste_page.dart';
 import 'package:ui_playground2/pages/rive_pull_to_refresh_page.dart';
+import 'package:ui_playground2/pages/spin_image_pick_page.dart';
+import 'package:ui_playground2/pages/text_run/text_run_page.dart';
 
 // 新しいpageを追加する場合は、pagesリストにMapを追加する
 List<Map<String, dynamic>> pages = [
+  {
+    'name': 'text_run',
+    'page': TextRunPage(),
+  },
+  {
+    'name': 'spin_image_pick',
+    'page': const SpinImagePickPage(),
+  },
   {
     'name': 'down_light',
     'page': const DownLightPage(),

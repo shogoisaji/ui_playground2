@@ -45,5 +45,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>編集画像を選択するためにフォトライブラリーへのアクセス許可が必要です</string>
 </dict>
 </plist>
