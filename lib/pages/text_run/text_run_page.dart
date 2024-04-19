@@ -7,7 +7,12 @@ import 'text_run_view_model.dart';
 class TextRunPage extends StackedView<TextRunViewModel> {
   TextRunPage({super.key});
 
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _subTitleController = TextEditingController();
+
+  SMITrigger? _start;
+
+  void _hitBump() => _start?.fire();
 
   @override
   Widget builder(
@@ -16,48 +21,72 @@ class TextRunPage extends StackedView<TextRunViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              width: 500,
-              height: 500,
-              child: RiveAnimation.asset(
-                'assets/rive/text_run.riv',
-                // artboard: 'counter',
-                fit: BoxFit.contain,
-                onInit: (Artboard artboard) {
-                  final controller = StateMachineController.fromArtboard(
-                    artboard,
-                    'State Machine 1',
-                  );
+      backgroundColor: Colors.blueGrey.shade500,
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey.shade500,
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              // SizedBox(
+              //   width: 500,
+              //   height: 300,
+              //   child: RiveAnimation.asset(
+              //     'assets/rive/text_run.riv',
+              //     artboard: 'text_animation',
+              //     fit: BoxFit.contain,
+              //     onInit: (Artboard artboard) {
+              //       final controller = StateMachineController.fromArtboard(
+              //         artboard,
+              //         'State Machine 1',
+              //       );
+              //       _start = controller?.findInput<bool>('start') as SMITrigger;
+              //       controller?.addEventListener(viewModel.onRiveEvent);
+              //       artboard.addController(controller!);
 
-                  controller?.addEventListener(viewModel.onRiveEvent);
-                  artboard.addController(controller!);
-
-                  final counterState = artboard.textRun('text1')!;
-                  viewModel.setTextState(counterState);
-                },
-              ),
-            ),
-            SizedBox(
-              width: 200,
-              child: TextField(
-                controller: _controller,
-                onChanged: (s) {
-                  viewModel.updateText(s);
-                },
-              ),
-            ),
-            const SizedBox(height: 12),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     viewModel.updateText(_controller.text);
-            //   },
-            //   child: const Text('Change Text'),
-            // ),
-          ],
+              //       final titleState = artboard.textRun('title')!;
+              //       final subTitleState = artboard.textRun('subtitle')!;
+              //       viewModel.setTitleTextState(titleState);
+              //       viewModel.setSubTitleTextState(subTitleState);
+              //     },
+              //   ),
+              // ),
+              // SizedBox(
+              //   width: 200,
+              //   child: TextField(
+              //     controller: _titleController,
+              //     onChanged: (s) {
+              //       viewModel.updateTitleText(s);
+              //     },
+              //   ),
+              // ),
+              // const SizedBox(height: 12),
+              // SizedBox(
+              //   width: 200,
+              //   child: TextField(
+              //     controller: _subTitleController,
+              //     onChanged: (s) {
+              //       viewModel.updateSubTitleText(s);
+              //     },
+              //   ),
+              // ),
+              // const SizedBox(height: 12),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     _hitBump();
+              //   },
+              //   child: const Text('Start'),
+              // ),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Column(
+                    children: [
+                      ThreadNumberWidget(),
+                    ],
+                  )),
+            ],
+          ),
         ),
       ),
     );
@@ -72,4 +101,64 @@ class TextRunPage extends StackedView<TextRunViewModel> {
 
 extension _TextExtension on Artboard {
   TextValueRun? textRun(String name) => component<TextValueRun>(name);
+}
+
+class ThreadNumberWidget extends StatefulWidget {
+  const ThreadNumberWidget({super.key});
+
+  @override
+  State<ThreadNumberWidget> createState() => _ThreadNumberWidgetState();
+}
+
+class _ThreadNumberWidgetState extends State<ThreadNumberWidget> {
+  SMITrigger? _start;
+  SMIInput<double>? _number;
+
+  void _hitBump() => _start?.fire();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 200,
+          child: RiveAnimation.asset(
+            'assets/rive/text_run.riv',
+            artboard: 'number_thread',
+            fit: BoxFit.contain,
+            onInit: (Artboard artboard) {
+              final controller = StateMachineController.fromArtboard(
+                artboard,
+                'State Machine 1',
+              );
+              artboard.addController(controller!);
+              _start = controller.findInput<bool>('start') as SMITrigger;
+              _number = controller.findInput<double>('number') as SMINumber;
+              _number?.value = 7;
+            },
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ...List.generate(
+              10,
+              (index) => ElevatedButton(
+                onPressed: () {
+                  _number?.value = index.toDouble();
+                },
+                child: Text(index.toString()),
+              ),
+            )
+          ],
+        ),
+        ElevatedButton(
+          onPressed: () {
+            _hitBump();
+          },
+          child: const Text('number start'),
+        ),
+      ],
+    );
+  }
 }

@@ -176,6 +176,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  hovering_action:
+    dependency: "direct main"
+    description:
+      path: "../package/hovering_action"
+      relative: true
+    source: path
+    version: "0.0.1"
   http:
     dependency: transitive
     description:
