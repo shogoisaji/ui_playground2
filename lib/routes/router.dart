@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ui_playground2/pages/bottom_nav_page.dart';
 import 'package:ui_playground2/pages/card_change_page.dart';
 import 'package:ui_playground2/pages/down_light_page.dart';
 import 'package:ui_playground2/pages/follow_path_page.dart';
+import 'package:ui_playground2/pages/heart.dart';
 import 'package:ui_playground2/pages/image_paste_page.dart';
 import 'package:ui_playground2/pages/metal_card.dart';
 import 'package:ui_playground2/pages/package_test_page.dart';
@@ -13,6 +15,14 @@ import 'package:ui_playground2/pages/text_run/text_run_page.dart';
 
 // 新しいpageを追加する場合は、pagesリストにMapを追加する
 List<Map<String, dynamic>> pages = [
+  {
+    'name': 'bottom_nav',
+    'page': const BottomNavPage(),
+  },
+  {
+    'name': 'heart',
+    'page': const HeartPage(),
+  },
   {
     'name': 'metal_card',
     'page': const MetalCard(),

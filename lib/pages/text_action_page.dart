@@ -13,7 +13,8 @@ class TextActionPage extends StatefulWidget {
   _TextActionPageState createState() => _TextActionPageState();
 }
 
-class _TextActionPageState extends State<TextActionPage> with SingleTickerProviderStateMixin {
+class _TextActionPageState extends State<TextActionPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   final _textController = TextEditingController();
@@ -38,6 +39,7 @@ class _TextActionPageState extends State<TextActionPage> with SingleTickerProvid
   @override
   void dispose() {
     _textController.dispose();
+    _controller.dispose();
     _focusNode.dispose();
     super.dispose();
   }
@@ -54,7 +56,8 @@ class _TextActionPageState extends State<TextActionPage> with SingleTickerProvid
               animation: _animation,
               builder: (context, child) {
                 return CustomPaint(
-                  painter: TextOnPathPainter(_animation.value, text: _textController.text),
+                  painter: TextOnPathPainter(_animation.value,
+                      text: _textController.text),
                   size: const Size(300, 300),
                 );
               },
@@ -145,7 +148,8 @@ class CharacterWidget extends StatefulWidget {
   _CharacterWidgetState createState() => _CharacterWidgetState();
 }
 
-class _CharacterWidgetState extends State<CharacterWidget> with SingleTickerProviderStateMixin {
+class _CharacterWidgetState extends State<CharacterWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -211,8 +215,10 @@ class TextOnPathPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Path path = Path();
     path.moveTo(size.width / 2, 0);
-    path.cubicTo(size.width, 0, size.width, size.height / 2, size.width / 2, size.height / 2);
-    path.cubicTo(0, size.height / 2, 0, size.height, size.width / 2, size.height);
+    path.cubicTo(size.width, 0, size.width, size.height / 2, size.width / 2,
+        size.height / 2);
+    path.cubicTo(
+        0, size.height / 2, 0, size.height, size.width / 2, size.height);
 
     canvas.drawPath(
       path,
