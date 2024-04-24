@@ -39,16 +39,20 @@ class _BottomNavPageState extends State<BottomNavPage> {
             BottomNav(
               navItems: [
                 NavItem(
-                    icon: const Icon(Icons.home, color: Colors.blueGrey),
+                    icon:
+                        Icon(Icons.home, color: Colors.grey.shade100, size: 36),
                     onTap: () {}),
                 NavItem(
-                    icon: const Icon(Icons.search, color: Colors.blueGrey),
+                    icon: Icon(Icons.search,
+                        color: Colors.grey.shade100, size: 36),
                     onTap: () {}),
                 NavItem(
-                    icon: const Icon(Icons.add, color: Colors.blueGrey),
+                    icon:
+                        Icon(Icons.add, color: Colors.grey.shade100, size: 36),
                     onTap: () {}),
                 NavItem(
-                    icon: const Icon(Icons.favorite, color: Colors.blueGrey),
+                    icon: Icon(Icons.favorite,
+                        color: Colors.grey.shade100, size: 32),
                     onTap: () {}),
               ],
             ),
@@ -62,17 +66,17 @@ class _BottomNavPageState extends State<BottomNavPage> {
 class CusotomCurve extends Curve {
   final strength = 5.0;
   double _bounce(double t) {
-    if (t < 1.0 / 2.75) {
+    if (t < 1.2 / 2.75) {
       return 7.4 * t * t;
-    } else if (t < 2.2 / 2.75) {
-      t -= 1.25 / 2.75;
-      return 7.4 * t * t + 0.96;
+    } else if (t < 2.0 / 2.75) {
+      t -= 1.05 / 2.75;
+      return 7.4 * t * t + 0.95;
     } else if (t < 2.5 / 2.75) {
-      t -= 2.2 / 2.75;
+      t -= 1.5 / 2.75;
       return 7.4 * t * t + 0.97;
     }
-    t -= 2.625 / 2.75;
-    return 7.4 * t * t + 0.98;
+    t -= 2.2 / 2.75;
+    return 7.4 * t * t + 0.99;
   }
 
   @override
@@ -102,24 +106,128 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
   List<Offset> _initialItemsOffsetList = List.filled(4, Offset.zero);
   final List<Offset> _itemsOffsetList = List.filled(4, Offset.zero);
   int _pushedIndex = 0;
-  bool isShowPath = true;
+  bool isShowPath = false;
   double moveProgress = 0.0;
 
-  Path createPath(double width, Offset position) {
-    const strength = 100.0;
-    final p1 = Offset(position.dx, 0.8 * -strength);
+  Path createPath(double width, Offset position, int index) {
+    const strength = 60.0;
+    final p1 = Offset(position.dx, 0.3 * -strength);
     final p2 = Offset(width / 2, 1.5 * -strength);
     final p3 = Offset(width / 2, 0);
+
+    final p01 = Offset(position.dx, 0.8 * -strength);
+    final p02 = Offset(position.dx + width / 5, 1.5 * -strength);
+    final p03 = Offset(position.dx + width / 5, -_itemWidth / 2.2);
+
+    final p04 = Offset(position.dx + width / 5, 0.7 * -strength);
+    final p05 = Offset(width / 2, 1.5 * -strength);
+    final p06 = Offset(width / 2, 0);
+
+    final p11 = Offset(position.dx, 1.0 * -strength);
+    final p12 = Offset(width / 2.3, -strength / 2);
+    final p13 = Offset(width / 2.2, -_itemWidth / 2.8);
+
+    final p14 = Offset(width / 2.1, -strength * 0.8);
+    final p15 = Offset(width / 2, 0.3 * -strength);
+    final p16 = Offset(width / 2, 0);
+
+    final p21 = Offset(position.dx, 2.0 * -strength);
+    final p22 = Offset(width / 2.3, -strength / 2);
+    final p23 = Offset(width / 2.2, -_itemWidth / 2.8);
+
+    final p24 = Offset(width / 2.1, -strength * 0.8);
+    final p25 = Offset(width / 2, 1.5 * -strength);
+    final p26 = Offset(width / 2, 0);
+
+    final p31 = Offset(position.dx, 0.8 * -strength);
+    final p32 = Offset(width - 20, -strength);
+    final p33 = Offset(width - _itemWidth / 2.8, -strength);
+
+    final p34 = Offset(width - _itemWidth / 2.8, -strength * 2);
+    final p35 = Offset(width / 2, 1.5 * -strength);
+    final p36 = Offset(width / 2, 0);
     final path = Path();
     path.moveTo(position.dx, position.dy);
-    path.cubicTo(
-      p1.dx,
-      p1.dy,
-      p2.dx,
-      p2.dy,
-      p3.dx,
-      p3.dy,
-    );
+
+    if (index == 0) {
+      path.cubicTo(
+        p01.dx,
+        p01.dy,
+        p02.dx,
+        p02.dy,
+        p03.dx,
+        p03.dy,
+      );
+      path.cubicTo(
+        p04.dx,
+        p04.dy,
+        p05.dx,
+        p05.dy,
+        p06.dx,
+        p06.dy,
+      );
+    } else if (index == 1) {
+      path.cubicTo(
+        p11.dx,
+        p11.dy,
+        p12.dx,
+        p12.dy,
+        p13.dx,
+        p13.dy,
+      );
+      path.cubicTo(
+        p14.dx,
+        p14.dy,
+        p15.dx,
+        p15.dy,
+        p16.dx,
+        p16.dy,
+      );
+    } else if (index == 2) {
+      path.cubicTo(
+        p21.dx,
+        p21.dy,
+        p22.dx,
+        p22.dy,
+        p23.dx,
+        p23.dy,
+      );
+      path.cubicTo(
+        p24.dx,
+        p24.dy,
+        p25.dx,
+        p25.dy,
+        p26.dx,
+        p26.dy,
+      );
+    } else if (index == 3) {
+      path.cubicTo(
+        p31.dx,
+        p31.dy,
+        p32.dx,
+        p32.dy,
+        p33.dx,
+        p33.dy,
+      );
+      path.cubicTo(
+        p34.dx,
+        p34.dy,
+        p35.dx,
+        p35.dy,
+        p36.dx,
+        p36.dy,
+      );
+    } else {
+      path.cubicTo(
+        p1.dx,
+        p1.dy,
+        p2.dx,
+        p2.dy,
+        p3.dx,
+        p3.dy,
+      );
+    }
+
     return path;
   }
 
@@ -154,7 +262,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 1200),
     );
     _animation = CurvedAnimation(
       parent: _controller,
@@ -177,14 +285,14 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
       setState(() {
         _initialItemsOffsetList = [
           Offset(w / 7, _height / 5),
-          Offset(w * 2.5 / 7, _height / 5),
-          Offset(w * 4.5 / 7, _height / 5),
+          Offset(w * 2.4 / 7, _height / 5),
+          Offset(w * 4.6 / 7, _height / 5),
           Offset(w * 6 / 7, _height / 5),
         ];
       });
       for (int i = 0; i < _navItems.length; i++) {
         _navItems[i] = _navItems[i].copyWith(
-          path: createPath(w, _initialItemsOffsetList[i]),
+          path: createPath(w, _initialItemsOffsetList[i], i),
         );
       }
       for (int i = 0; i < _navItems.length; i++) {
@@ -222,14 +330,14 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                 controller: _pageController,
                 children: [
                   Container(
-                    color: Colors.red,
+                    color: const Color.fromARGB(255, 153, 113, 99),
                     child: const Center(
                       child: Text('Home',
                           style: TextStyle(color: Colors.white, fontSize: 60)),
                     ),
                   ),
                   Container(
-                      color: Colors.green,
+                      color: Colors.indigo,
                       child: const Center(
                         child: Text(
                           'Search',
@@ -237,14 +345,14 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                         ),
                       )),
                   Container(
-                    color: Colors.blue,
+                    color: const Color.fromARGB(255, 69, 195, 217),
                     child: const Center(
                       child: Text('Add',
                           style: TextStyle(color: Colors.white, fontSize: 60)),
                     ),
                   ),
                   Container(
-                    color: Colors.yellow,
+                    color: const Color.fromARGB(255, 187, 206, 79),
                     child: const Center(
                       child: Text('Favorite',
                           style: TextStyle(color: Colors.white, fontSize: 60)),
@@ -260,7 +368,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
               painter: BottomNavStagePainter(
                 itemWidth: _itemWidth,
                 height: _height,
-                color: Colors.blue.shade200,
+                color: Colors.green.shade400,
               ),
               size: Size(w, _height),
             ),
@@ -314,10 +422,14 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                   width: _itemWidth,
                   height: _itemWidth,
                   decoration: BoxDecoration(
+                    image: const DecorationImage(
+                      image: AssetImage('assets/images/ball.png'),
+                      fit: BoxFit.cover,
+                    ),
                     color: Colors.grey.shade300,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.blueGrey.withOpacity(0.5),
+                      color: Colors.blueGrey.withOpacity(0.2),
                       width: 1.0,
                     ),
                     boxShadow: [
@@ -325,7 +437,7 @@ class _BottomNavState extends State<BottomNav> with TickerProviderStateMixin {
                         color: Colors.black.withOpacity(0.2),
                         blurRadius: 3.0,
                         spreadRadius: 1.0,
-                        offset: const Offset(0, 2),
+                        offset: const Offset(0, 1.5),
                       ),
                     ],
                   ),
@@ -370,14 +482,25 @@ class BottomNavStagePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     const double itemWidthOffsetValue = 5;
     final paint = Paint()
-      ..color = color
+      ..shader = const LinearGradient(
+        colors: [
+          Color.fromARGB(255, 90, 152, 150),
+          Color.fromARGB(255, 89, 107, 167),
+          Color.fromARGB(255, 22, 72, 105),
+          // Color.fromARGB(255, 52, 195, 190),
+          // Color.fromARGB(255, 52, 187, 155),
+          // Color.fromARGB(255, 16, 115, 129),
+        ],
+        begin: Alignment(-0.1, -1.9),
+        end: Alignment(0.0, 1.9),
+      ).createShader(Rect.fromLTRB(0, 0, size.width, size.height))
       ..style = PaintingStyle.fill
       ..strokeWidth = 4.0;
 
     final shadowPaint = Paint()
       ..color = Colors.black.withOpacity(0.4)
       ..style = PaintingStyle.fill
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3);
 
     var path = Path();
     path.moveTo(0, 2 * height);
@@ -409,7 +532,7 @@ class ItemOrbitPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.red
+      ..color = Colors.black
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
 
