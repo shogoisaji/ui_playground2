@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,8 @@ class DownLightPage extends StatefulWidget {
   State<DownLightPage> createState() => _DownLightPageState();
 }
 
-class _DownLightPageState extends State<DownLightPage> with SingleTickerProviderStateMixin {
+class _DownLightPageState extends State<DownLightPage>
+    with SingleTickerProviderStateMixin {
   final Size containerSize = const Size(300, 200);
 
   late AnimationController _controller;
@@ -20,7 +22,9 @@ class _DownLightPageState extends State<DownLightPage> with SingleTickerProvider
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _animation = Tween<double>(begin: 0, end: containerSize.width + containerSize.height).animate(
+    _animation =
+        Tween<double>(begin: 0, end: containerSize.width + containerSize.height)
+            .animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
   }
@@ -39,9 +43,12 @@ class _DownLightPageState extends State<DownLightPage> with SingleTickerProvider
             AnimatedBuilder(
               animation: _animation,
               builder: (context, child) {
-                final double shadowSizeHeight = (_animation.value).clamp(0, containerSize.height);
+                final double shadowSizeHeight =
+                    (_animation.value).clamp(0, containerSize.height);
                 final double shadowSizeWidth =
-                    _animation.value > containerSize.height ? _animation.value - containerSize.height : 0;
+                    _animation.value > containerSize.height
+                        ? _animation.value - containerSize.height
+                        : 0;
 
                 return Positioned(
                   top: containerPositionY,
@@ -56,13 +63,15 @@ class _DownLightPageState extends State<DownLightPage> with SingleTickerProvider
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.orange.withOpacity(0.5 * _controller.value),
+                          color: Colors.orange
+                              .withOpacity(0.5 * _controller.value),
                           blurRadius: 25,
                           spreadRadius: 10,
                           offset: const Offset(15, 25),
                         ),
                         BoxShadow(
-                          color: Colors.yellow.withOpacity(0.5 * _controller.value),
+                          color: Colors.yellow
+                              .withOpacity(0.5 * _controller.value),
                           blurRadius: 15,
                           spreadRadius: 5,
                           offset: const Offset(7, 10),
@@ -93,6 +102,14 @@ class _DownLightPageState extends State<DownLightPage> with SingleTickerProvider
                       offset: const Offset(2, 3),
                     ),
                   ],
+                ),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      AppSettings.openAppSettings();
+                    },
+                    child: const Text('open'),
+                  ),
                 ),
               ),
             ),

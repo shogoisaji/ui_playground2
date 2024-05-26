@@ -2,19 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ui_playground2/pages/bottom_nav_page.dart';
 import 'package:ui_playground2/pages/card_change_page.dart';
+import 'package:ui_playground2/pages/cloud_page.dart';
 import 'package:ui_playground2/pages/down_light_page.dart';
 import 'package:ui_playground2/pages/follow_path_page.dart';
 import 'package:ui_playground2/pages/heart.dart';
 import 'package:ui_playground2/pages/image_paste_page.dart';
 import 'package:ui_playground2/pages/metal_card.dart';
+import 'package:ui_playground2/pages/overlay_test.dart';
 import 'package:ui_playground2/pages/package_test_page.dart';
 import 'package:ui_playground2/pages/rive_pull_to_refresh_page.dart';
+import 'package:ui_playground2/pages/scroll_3d_page.dart';
 import 'package:ui_playground2/pages/spin_image_pick_page.dart';
 import 'package:ui_playground2/pages/text_action_page.dart';
 import 'package:ui_playground2/pages/text_run/text_run_page.dart';
+import 'package:ui_playground2/pages/transform_rotate.dart';
 
 // 新しいpageを追加する場合は、pagesリストにMapを追加する
 List<Map<String, dynamic>> pages = [
+  {
+    'name': 'cloud',
+    'page': const CloudPage(),
+  },
+  {
+    'name': 'overlay_test',
+    'page': const OverlayTest(),
+  },
+  {
+    'name': 'transform_rotate',
+    'page': const TransformRotate(),
+  },
+  {
+    'name': 'scroll_3d',
+    'page': const Scroll3dPage(),
+  },
   {
     'name': 'bottom_nav',
     'page': const BottomNavPage(),
