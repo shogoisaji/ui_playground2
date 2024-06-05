@@ -7,6 +7,7 @@ import 'package:ui_playground2/pages/down_light_page.dart';
 import 'package:ui_playground2/pages/follow_path_page.dart';
 import 'package:ui_playground2/pages/heart.dart';
 import 'package:ui_playground2/pages/image_paste_page.dart';
+import 'package:ui_playground2/pages/list_image_hover.dart';
 import 'package:ui_playground2/pages/metal_card.dart';
 import 'package:ui_playground2/pages/overlay_test.dart';
 import 'package:ui_playground2/pages/package_test_page.dart';
@@ -19,6 +20,10 @@ import 'package:ui_playground2/pages/transform_rotate.dart';
 
 // 新しいpageを追加する場合は、pagesリストにMapを追加する
 List<Map<String, dynamic>> pages = [
+  {
+    'name': 'list_image_hover',
+    'page': const ListImageHover(),
+  },
   {
     'name': 'cloud',
     'page': const CloudPage(),
@@ -152,7 +157,7 @@ GoRouter router() {
   ];
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/list_image_hover',
     routes: routes,
   );
 }
