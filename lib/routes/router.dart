@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ui_playground2/pages/bottom_nav_page.dart';
 import 'package:ui_playground2/pages/card_change_page.dart';
 import 'package:ui_playground2/pages/cloud_page.dart';
+import 'package:ui_playground2/pages/custom_amazon.dart';
 import 'package:ui_playground2/pages/down_light_page.dart';
 import 'package:ui_playground2/pages/follow_path_page.dart';
 import 'package:ui_playground2/pages/heart.dart';
@@ -20,6 +21,10 @@ import 'package:ui_playground2/pages/transform_rotate.dart';
 
 // 新しいpageを追加する場合は、pagesリストにMapを追加する
 List<Map<String, dynamic>> pages = [
+  {
+    'name': 'custom_amazon',
+    'page': const CustomAmazon(),
+  },
   {
     'name': 'list_image_hover',
     'page': const ListImageHover(),
@@ -157,7 +162,7 @@ GoRouter router() {
   ];
 
   return GoRouter(
-    initialLocation: '/list_image_hover',
+    initialLocation: '/custom_amazon',
     routes: routes,
   );
 }
